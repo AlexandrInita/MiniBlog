@@ -1,48 +1,69 @@
 <template>
   <div class="d-flex justify-center">
-    <v-container>
-      <v-btn class="rounded-lg elevation-0" color='primary' @click="generetePosts">
-        <span class="btn-text">Сгенерировать посты</span>
-      </v-btn>
-      <v-btn class="ml-1 rounded-lg elevation-0" color='primary' @click="createNewPost">
-        <span class="btn-text">+ Добавить пост</span>
-      </v-btn>
-  
-      <v-card class="mt-2 rounded-lg elevation-1" v-for="(post,index) in posts" :key="index">
-        <v-card-title>{{post.title}}</v-card-title> 
-        <v-card-text>
-          <h3>{{post.shorttext}}</h3>
+    <v-container class="mx-10">
+      <v-row>
+        <v-col cols="8 pt-0">
+          <v-card class="mt-2 rounded-lg elevation-1" v-for="(post,index) in posts" :key="index">
+            <v-card-title>{{post.title}}</v-card-title> 
+            <v-card-text>
+              <div class="text--primary">{{post.shorttext}}</div>
 
-          <div class="d-flex justify-space-between mt-10">
-            <router-link :to="`/post/read/${post.id}`" style="text-decoration: none; color: inherit;">
-              <v-btn>Читать далее</v-btn>
-            </router-link>
-            <div>
-              <v-btn icon small @click="edit(post)">
-                <v-icon dark> mdi-pencil</v-icon>
-              </v-btn>
-                
-              <v-btn class="ml-1" icon small @click="deletePost(index)">
-                <v-icon dark> mdi-delete</v-icon>
-              </v-btn>
-            </div>          
-          </div>
+              <div class="d-flex justify-space-between mt-10">
+                <router-link :to="`/post/read/${post.id}`" style="text-decoration: none; color: inherit;">
+                  <v-btn text color="primary">Читать далее</v-btn>
+                </router-link>
+                <div>
+                  <v-btn icon small @click="edit(post)">
+                    <v-icon dark> mdi-pencil-outline</v-icon>
+                  </v-btn>
+                    
+                  <v-btn class="ml-1" icon small @click="deletePost(index)">
+                    <v-icon dark> mdi-delete-outline</v-icon>
+                  </v-btn>
+                </div>          
+              </div>
 
-          <div class="mt-1">
-            <span>Комментарии: {{post.comments.length}}</span>
-          </div>
-        </v-card-text> 
-      </v-card>
+              <div class="mt-1">
+                <span>Комментарии: {{post.comments.length}}</span>
+              </div>
+            </v-card-text> 
+          </v-card>
 
-      <v-card class="mt-2 rounded-lg elevation-1" v-if="!posts.length">
-        <v-card-text class="d-flex justify-center">
-            <video height="350" width="350" autoplay loop>
-              <source src="@/assets/noposts.webm" type="video/webm">
-            </video>
-            <h1>Жду...</h1>
-        </v-card-text>
-      </v-card>
+          <v-card class="mt-2 rounded-lg elevation-1" v-if="!posts.length">
+            <v-card-text class="d-flex justify-center">
+                <video height="350" width="350" autoplay loop>
+                  <source src="@/assets/noposts.webm" type="video/webm">
+                </video>
+                <h1>Жду...</h1>
+            </v-card-text>
+          </v-card>
+        </v-col>
 
+        <v-col cols="4" class="pt-0">
+          <v-card class="mt-2" outlined>
+            <v-card-title>Действия</v-card-title>
+            <v-card-text>
+              <div>
+                <v-btn class="rounded-lg elevation-0" color='primary' @click="generetePosts">
+                  <span class="btn-text">Сгенерировать посты</span>
+                </v-btn>
+                <v-btn class="ml-1 rounded-lg elevation-0" color='primary'>
+                  <span class="btn-text">Перемешать</span>
+                </v-btn>
+              </div>
+
+              <div class="mt-2">
+                <v-btn class="rounded-lg elevation-0" color='primary' @click="createNewPost">
+                  <span class="btn-text">+ Добавить пост</span>
+                </v-btn>
+                <v-btn class="ml-1 rounded-lg elevation-0" color='primary'>
+                  <span class="btn-text">Фильтровать</span>
+                </v-btn>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
       <AddEditPostDialog 
         :dialog="dialog"
         :editablePost="editablePost"
