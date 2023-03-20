@@ -142,6 +142,7 @@ export default {
     },
 
     closeDialog() {
+      this.editablePost = null
       this.dialog = false
     }
   }
