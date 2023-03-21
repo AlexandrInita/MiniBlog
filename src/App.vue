@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app style="background: #fdfdfd;">
     <v-main class="mt-3">
       <router-view/>
     </v-main>
@@ -16,3 +16,12 @@ export default {
   }),
 };
 </script>
+
+<style>
+.btn-text {
+  font-weight: 500;
+  line-height: 19px;
+  text-transform: none;
+  letter-spacing: normal;
+}
+</style>

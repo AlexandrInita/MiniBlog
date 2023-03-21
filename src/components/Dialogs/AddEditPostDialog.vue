@@ -32,11 +32,11 @@
           <v-img v-if="validator" src="@/assets/validator.webp" :width="300"/>
 
           <v-btn class="px-3" color="primary" outlined @click="closeDialog">
-            <v-icon dark>mdi-close</v-icon>
+            <v-icon dark size="20">mdi-close</v-icon>
             <span class="btn-text">Отменить</span>
           </v-btn>
           <v-btn class="px-3" color="primary" @click="post && post.id ? editPost(): addPost()">
-            <v-icon dark>{{post && post.id ? 'mdi-pencil-outline' : 'mdi-plus'}}</v-icon>
+            <v-icon dark size="20">{{post && post.id ? 'mdi-pencil-outline' : 'mdi-plus'}}</v-icon>
             <span class="btn-text">{{post && post.id ? 'Редактировать' : 'Добавить'}}</span>
           </v-btn>
         </v-card-actions>
@@ -110,10 +110,4 @@ export default {
 </script>
 
 <style scoped>
-.btn-text {
-  font-weight: 500;
-  line-height: 19px;
-  text-transform: none;
-  letter-spacing: normal;
-}
 </style>

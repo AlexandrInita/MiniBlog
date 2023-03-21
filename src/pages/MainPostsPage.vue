@@ -44,19 +44,20 @@
             <v-card-title>Действия</v-card-title>
             <v-card-text>
               <div>
-                <v-btn class="rounded-lg elevation-0" color='primary' @click="generetePosts">
+                <v-btn class="px-3 rounded-lg elevation-0" color='primary' @click="generetePosts">
                   <span class="btn-text">Сгенерировать посты</span>
                 </v-btn>
-                <v-btn class="ml-1 rounded-lg elevation-0" color='primary'>
+                <v-btn class="px-3 ml-1 rounded-lg elevation-0" color='primary'>
                   <span class="btn-text">Перемешать</span>
                 </v-btn>
               </div>
 
               <div class="mt-2">
-                <v-btn class="rounded-lg elevation-0" color='primary' @click="createNewPost">
-                  <span class="btn-text">+ Добавить пост</span>
+                <v-btn class="px-3 rounded-lg elevation-0" color='primary' @click="createNewPost">
+                  <v-icon dark size="20">mdi-plus</v-icon>
+                  <span class="ml-2 btn-text">Добавить пост</span>
                 </v-btn>
-                <v-btn class="ml-1 rounded-lg elevation-0" color='primary'>
+                <v-btn class="px-3 ml-1 rounded-lg elevation-0" color='primary'>
                   <span class="btn-text">Фильтровать</span>
                 </v-btn>
               </div>
@@ -150,10 +151,4 @@ export default {
 </script>
 
 <style scoped>
-.btn-text {
-  font-weight: 500;
-  line-height: 19px;
-  text-transform: none;
-  letter-spacing: normal;
-}
 </style>
