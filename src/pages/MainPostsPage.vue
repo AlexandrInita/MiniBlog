@@ -6,7 +6,7 @@
           <v-card class="mt-2 rounded-lg elevation-1" v-for="(post,index) in posts" :key="index">
             <v-card-title>{{post.title}}</v-card-title> 
             <v-card-text>
-              <div class="text--primary">{{post.shorttext}}</div>
+              <div class="text--primary">{{post.shortText}}</div>
 
               <div class="d-flex justify-space-between mt-10">
                 <router-link :to="`/post/read/${post.id}`" style="text-decoration: none; color: inherit;">
@@ -103,9 +103,9 @@ export default {
       const comments = [{name:"Александр", text: "Просто чудо чудесное"},
                         {name:"Еще Александр", text: "Великолепный пост"}]
 
-      this.posts = [{id:1, title:"Заголовок 1", shorttext:"Короткий текст", text:"Полный текст",  comments: comments},
-                    {id:2, title:"Заголовок 2", shorttext:"Короткий текст", text:"Полный текст", comments: []},
-                    {id:3, title:"Заголовок 3", shorttext:"Короткий текст", text:"Полный текст", comments: []}]
+      this.posts = [{id:1, title:"Заголовок 1", shortText:"Короткий текст", text:"Полный текст",  comments: comments},
+                    {id:2, title:"Заголовок 2", shortText:"Короткий текст", text:"Полный текст", comments: []},
+                    {id:3, title:"Заголовок 3", shortText:"Короткий текст", text:"Полный текст", comments: []}]
 
       this.updateLocalStorage()
     },
