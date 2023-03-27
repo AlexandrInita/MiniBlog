@@ -3,7 +3,7 @@
     <v-container class="mx-10">
       <v-row>
         <v-col cols="8 pt-0">
-          <v-card class="mt-2 rounded-lg elevation-1" v-for="(post,index) in posts" :key="index">
+          <v-card class="mt-2 rounded-lg elevation-1" v-for="(post,index) in this.filteredPosts" :key="index">
             <v-card-title>{{post.title}}</v-card-title> 
             <v-card-text>
               <div class="text--primary">{{post.shortText}}</div>
@@ -29,6 +29,12 @@
             </v-card-text> 
           </v-card>
 
+          <v-card class="mt-2 rounded-lg elevation-1" v-if="!this.filteredPosts.length && posts.length">
+            <v-card-text class="d-flex justify-center">
+              <span>Ничего не найдено</span>
+            </v-card-text>
+          </v-card>
+
           <v-card class="mt-2 rounded-lg elevation-1" v-if="!posts.length">
             <v-card-text class="d-flex justify-center">
                 <video height="350" width="350" autoplay loop>
@@ -44,21 +50,20 @@
             <v-card-title>Действия</v-card-title>
             <v-card-text>
               <div>
+                <v-text-field
+                  v-model="searchText"
+                  class="rounded-lg"
+                  append-icon="mdi-magnify"
+                  outlined dense hide-details clearable
+                />
+              </div>
+              <div class="mt-4">
                 <v-btn class="px-3 rounded-lg elevation-0" color='primary' @click="generetePosts">
                   <span class="btn-text">Сгенерировать посты</span>
                 </v-btn>
-                <v-btn class="px-3 ml-1 rounded-lg elevation-0" color='primary'>
-                  <span class="btn-text">Перемешать</span>
-                </v-btn>
-              </div>
-
-              <div class="mt-2">
-                <v-btn class="px-3 rounded-lg elevation-0" color='primary' @click="createNewPost">
+                <v-btn class="ml-2 px-3 rounded-lg elevation-0" color='primary' @click="createNewPost">
                   <v-icon dark size="20">mdi-plus</v-icon>
                   <span class="ml-2 btn-text">Добавить пост</span>
-                </v-btn>
-                <v-btn class="px-3 ml-1 rounded-lg elevation-0" color='primary'>
-                  <span class="btn-text">Фильтровать</span>
                 </v-btn>
               </div>
             </v-card-text>
@@ -94,7 +99,16 @@ export default {
     return{
       dialog: false,
       editablePost: null,
-      posts: []
+      posts: [],
+      searchText: ''
+    }
+  },
+
+  computed: {
+    filteredPosts() {
+      return this.searchText 
+              ? this.posts.filter(el => el.title.toLowerCase().includes(this.searchText.toLowerCase()))
+              : this.posts
     }
   },
 
