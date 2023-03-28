@@ -37,7 +37,7 @@
 
           <v-card class="mt-2 rounded-lg elevation-1" v-if="!posts.length">
             <v-card-text class="d-flex justify-center">
-                <video height="350" width="350" autoplay loop>
+                <video height="350" width="350" autoplay muted loop>
                   <source src="@/assets/noposts.webm" type="video/webm">
                 </video>
                 <h1>Жду...</h1>
