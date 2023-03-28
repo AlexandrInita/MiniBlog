@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-center">
+  <div class="mt-2 d-flex justify-center">
     <v-container>
       <v-row>
         <v-btn color="primary" class="ml-3" @click="$router.go(-1)">
