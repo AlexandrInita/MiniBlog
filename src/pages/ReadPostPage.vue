@@ -2,17 +2,16 @@
   <div class="mt-2 d-flex justify-center">
     <v-container>
       <v-row>
-        <v-btn color="primary" class="ml-3" @click="$router.go(-1)">
-          <v-icon dark size="20"> mdi-arrow-left </v-icon> 
-          <span class="btn-text">Назад</span>
-        </v-btn>
-      </v-row>
-
-      <v-row>
         <v-col cols="12">
-          <v-card elevation="1">
+          <v-card tile class="elevation-1">
+  
+            <v-btn class="mt-2 ml-2" color="primary" text @click="$router.go(-1)">
+              <v-icon dark size="20">mdi-arrow-left</v-icon> 
+              <span class="btn-text">Назад</span>
+            </v-btn>
+            
             <v-card-title>
-              <h1>{{ post.title }}</h1>
+              <h2>{{ post.title }}</h2>
             </v-card-title>
 
             <v-card-text>
@@ -28,7 +27,7 @@
             <v-card-text>
               <div class="mt-4" v-for="(comment, index) in post.comments" :key="index">
                 <div class="d-flex justify-space-between">
-                  <h2>{{ comment.name }}</h2>
+                  <h3>{{ comment.name }}</h3>
                   <v-btn icon small @click="deleteComment(index)">
                     <v-icon dark> mdi-delete-outline </v-icon>
                   </v-btn>
@@ -51,14 +50,14 @@
               <label class="ml-2"><strong>Имя комментатора</strong></label>
               <v-text-field
                 v-model="comment.name"
-                class="mt-1 rounded-lg"
-                outlined dense clearable
+                class="mt-1 mb-2 rounded-lg"
+                outlined dense hide-details="" clearable
               />
               <label class="ml-2"><strong>Комментарий</strong></label>
               <v-textarea
                 v-model="comment.text"
                 class="mt-1 rounded-lg"
-                outlined no-resize clearable
+                outlined no-resize hide-details clearable
                 rows="3"
               >
                 <template slot="append">
@@ -80,6 +79,7 @@ export default {
   mounted() {
     this.downloadFromLocalStorage();
     this.FindSelectedPost();
+    document.title = this.post.title;
   },
 
   data() {

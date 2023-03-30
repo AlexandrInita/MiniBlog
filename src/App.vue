@@ -1,7 +1,9 @@
 <template>
   <v-app style="background: #fdfdfd;">
     <v-toolbar class="px-10" max-height="48" dense elevation="1">
-      <v-toolbar-title class="py-0">Блог для примера</v-toolbar-title>
+     <!-- <div class="logo">mb</div> -->
+      <div class="logo">MB</div>
+      <v-toolbar-title class="">og</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon>
         <v-icon>mdi-heart</v-icon>
@@ -19,6 +21,10 @@
 export default {
   name: 'App',
 
+  mounted() {
+    document.title = 'MiniBlog';
+  },
+
   data: () => ({
     //
   }),
@@ -31,5 +37,14 @@ export default {
   line-height: 19px;
   text-transform: none;
   letter-spacing: normal;
+}
+
+.logo { 
+  font-weight: 500;
+  font-family: cursive;
+
+  border: 3px solid #1E88E5;
+  border-radius: 8px;
+  padding: 3px;
 }
 </style>

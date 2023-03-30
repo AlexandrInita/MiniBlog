@@ -3,7 +3,7 @@
     <v-container class="mx-10">
       <v-row>
         <v-col cols="8 pt-0">
-          <v-card class="mt-2 rounded-lg elevation-1" v-for="(post,index) in this.filteredPosts" :key="index">
+          <v-card class="mt-2 rounded-lg elevation-4" v-for="(post,index) in this.filteredPosts" :key="index">
             <v-card-title>{{post.title}}</v-card-title> 
             <v-card-text>
               <div class="text--primary">{{post.shortText}}</div>
@@ -92,6 +92,7 @@ export default {
   },
   
   mounted(){
+    document.title = 'MiniBlog - Статьи';
     this.downloadFromLocalStorage()
   },
   
