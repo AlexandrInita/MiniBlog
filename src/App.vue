@@ -1,11 +1,10 @@
 <template>
   <v-app style="background: #fdfdfd;">
     <v-toolbar class="px-10" max-height="48" dense elevation="1">
-     <!-- <div class="logo">mb</div> -->
       <div class="logo">MB</div>
       <v-toolbar-title class="">og</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn icon @click="snackbarActive = true">
         <v-icon>mdi-heart</v-icon>
       </v-btn>
     </v-toolbar>
@@ -13,6 +12,10 @@
     <v-main class="mt-0">
       <router-view/>
     </v-main>
+
+    <v-snackbar v-model="snackbarActive" :timeout="2000" color="primary" absolute left shaped bottom>
+      Сообщение: удачи и хорошего настроения!
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -26,7 +29,7 @@ export default {
   },
 
   data: () => ({
-    //
+    snackbarActive: false
   }),
 };
 </script>
