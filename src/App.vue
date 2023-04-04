@@ -24,10 +24,6 @@
 export default {
   name: 'App',
 
-  mounted() {
-    document.title = 'MiniBlog';
-  },
-
   data: () => ({
     snackbarActive: false
   }),
@@ -35,12 +31,7 @@ export default {
 </script>
 
 <style>
-.btn-text {
-  font-weight: 500;
-  line-height: 19px;
-  text-transform: none;
-  letter-spacing: normal;
-}
+@import 'assets/styles/main.css';
 
 .logo { 
   font-weight: 500;
