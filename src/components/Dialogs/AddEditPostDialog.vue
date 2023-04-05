@@ -12,6 +12,7 @@
             class="mt-1 rounded-lg"
             outlined dense clearable
             :error-messages="errorMessages.title"
+            @change="$v.post.title.$touch()"
           />
 
           <label class="ml-2"><strong>Короткий текст</strong></label>
@@ -20,6 +21,7 @@
             class="mt-1 rounded-lg"
             outlined dense clearable
             :error-messages="errorMessages.shortText"
+            @change="$v.post.shortText.$touch()"
           />
 
           <label class=" ml-2"><strong>Текст</strong></label>
@@ -28,6 +30,7 @@
             class="mt-1 rounded-lg"
             outlined no-resize clearable
             :error-messages="errorMessages.text"
+            @change="$v.post.text.$touch()"
           />
         </v-card-text>
 
@@ -65,8 +68,7 @@ export default {
   data() {
     return{
       posts: [],
-      post: new PostClass(),
-      validator: false,
+      post: new PostClass()
     }
   },
 
@@ -94,7 +96,7 @@ export default {
       let errors = []
 
       Object.keys(items.$params).forEach(key => {
-        if (!items[key]) {
+        if (items.$dirty && !items[key]) {
           switch (key) {
             case 'required':
               errors.push('Обязательное поле')
@@ -121,8 +123,8 @@ export default {
     },
 
     resetModal() {
-      this.$v.$reset()
       this.post = new PostClass()
+      this.$v.post.$reset()
     },
 
     closeDialog() {
