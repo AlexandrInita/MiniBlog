@@ -56,6 +56,7 @@
 <script>
 import { PostClass } from '@/models'
 import { required, maxLength } from 'vuelidate/lib/validators'
+import { errorMessage } from '@/scripts'
 
 export default {
   name: 'AddEditPostDialog',
@@ -85,32 +86,13 @@ export default {
       let errors = []
 
       Object.keys(this.$v.post.$params).forEach(key => {
-        errors[key] = this.message(this.$v.post[key])
+        errors[key] = errorMessage(this.$v.post[key])
       })
       return errors
     }
   },
 
   methods: {
-    message(items) {
-      let errors = []
-
-      Object.keys(items.$params).forEach(key => {
-        if (items.$dirty && !items[key]) {
-          switch (key) {
-            case 'required':
-              errors.push('Обязательное поле')
-              break
-            case 'maxLength':
-              errors.push('Максимальная длина ' + items.$params[key]?.max)
-              break
-            default: break
-          }
-        }
-      })
-      return errors
-    },
-
     addPost() {
       this.post.id = Date.now()
       this.$emit('addPost', this.post)
