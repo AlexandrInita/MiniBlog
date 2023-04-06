@@ -1,13 +1,6 @@
 <template>
   <v-app style="background: #fdfdfd;">
-    <v-toolbar class="px-10" max-height="48" dense elevation="1">
-      <div class="logo">MB</div>
-      <v-toolbar-title class="">og</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn icon @click="snackbarActive = true">
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-    </v-toolbar>
+    <TheHeader @heartBtnClick="snackbarActive = true"/>
 
     <v-main class="mt-0">
       <router-view/>
@@ -20,13 +13,14 @@
 </template>
 
 <script>
+import TheHeader from './components/App/TheHeader.vue';
 
 export default {
-  name: 'App',
-
-  data: () => ({
-    snackbarActive: false
-  }),
+    name: "App",
+    data: () => ({
+        snackbarActive: false
+    }),
+    components: { TheHeader }
 };
 </script>
 
