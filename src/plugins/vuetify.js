@@ -7,10 +7,19 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
   theme: {
+    options: { customProperties: true },
+    dark: false,
     themes: {
       light: {
+        background: '#fdfdfd',
         primary: colors.blue.darken1, 
         secondary: colors.blue.lighten4,
+        accent: colors.indigo.base,
+      },
+      dark: {
+        background: colors.black,
+        primary: colors.green.darken1,
+        secondary: colors.green.lighten4,
         accent: colors.indigo.base,
       },
     },

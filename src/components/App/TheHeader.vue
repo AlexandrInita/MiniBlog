@@ -4,7 +4,11 @@
       <div class="logo">MB</div>
       <v-toolbar-title class="">og</v-toolbar-title>
     </router-link>
+    
     <v-spacer></v-spacer>
+    
+    <v-switch v-model="$vuetify.theme.dark" hide-details/>
+
     <v-btn icon @click="heartBtnClick">
       <v-icon>mdi-heart</v-icon>
     </v-btn>
@@ -25,4 +29,12 @@ export default {
 </script>
 
 <style scoped>
+.logo { 
+  font-weight: 500;
+  font-family: cursive;
+
+  border: 3px solid var(--v-primary-base);
+  border-radius: 8px;
+  padding: 3px;
+}
 </style>

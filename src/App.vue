@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background: #fdfdfd;">
+  <v-app class="app-background">
     <TheHeader @heartBtnClick="snackbarActive = true"/>
 
     <v-main class="mt-0">
@@ -9,6 +9,10 @@
     <v-snackbar v-model="snackbarActive" :timeout="2000" color="primary" absolute left shaped bottom>
       Сообщение: удачи и хорошего настроения!
     </v-snackbar>
+
+    <v-footer class="footer-background">
+      © {{ new Date().getFullYear() }} MiniBlog
+    </v-footer>
   </v-app>
 </template>
 
@@ -27,12 +31,11 @@ export default {
 <style>
 @import 'assets/styles/main.css';
 
-.logo { 
-  font-weight: 500;
-  font-family: cursive;
+.app-background {
+  background: var(--v-background-base);
+}
 
-  border: 3px solid #1E88E5;
-  border-radius: 8px;
-  padding: 3px;
+.footer-background {
+  background: var(--v-background-base) !important;
 }
 </style>
