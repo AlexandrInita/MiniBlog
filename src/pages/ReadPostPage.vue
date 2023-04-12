@@ -15,7 +15,9 @@
             </v-card-title>
 
             <v-card-text>
-              {{ post.text }}
+              <div class="px-2 postText overflow-auto">
+                {{ post.text }}
+              </div>
             </v-card-text>
           </v-card>
         </v-col>
@@ -25,20 +27,22 @@
         <v-col cols="6">
           <v-card elevation="1">
             <v-card-text>
-              <div class="mt-4" v-for="(comment, index) in post.comments" :key="index">
-                <div class="d-flex justify-space-between">
-                  <h3>{{ comment.name }}</h3>
-                  <v-btn icon small @click="deleteComment(index)">
-                    <v-icon dark> mdi-delete-outline </v-icon>
-                  </v-btn>
+              <div class="px-2 commentsList overflow-auto">
+                <div class="mt-4" v-for="(comment, index) in post.comments" :key="index">
+                  <div class="d-flex justify-space-between">
+                    <h3>{{ comment.name }}</h3>
+                    <v-btn icon small @click="deleteComment(index)">
+                      <v-icon dark> mdi-delete-outline </v-icon>
+                    </v-btn>
+                  </div>
+
+                  <div>{{ comment.text }}</div>
+                  <v-divider />
                 </div>
 
-                <div>{{ comment.text }}</div>
-                <v-divider />
-              </div>
-
-              <div v-if="!post.comments || !post.comments.length">
-                Нет комментариев
+                <div v-if="!post.comments || !post.comments.length">
+                  Нет комментариев
+                </div>
               </div>
             </v-card-text>
           </v-card>
@@ -130,4 +134,11 @@ export default {
 </script>
 
 <style scoped>
+.commentsList {
+  height: 194px;
+}
+
+.postText {
+  height: 200px;
+}
 </style>
