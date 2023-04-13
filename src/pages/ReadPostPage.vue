@@ -77,6 +77,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "ReadPostPage",
 
@@ -84,6 +85,8 @@ export default {
     this.downloadFromLocalStorage();
     this.FindSelectedPost();
     document.title = this.post.title;
+
+    this.comment.name = this.username
   },
 
   data() {
@@ -98,6 +101,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters('user', ['username']),
+
     id() {
       return this.$route.params.id;
     },
@@ -105,11 +110,8 @@ export default {
 
   methods: {
     addComment() {
-      this.post.comments.push(this.comment);
-      this.comment = {
-        name: null,
-        text: null,
-      };
+      this.post.comments.push(Object.assign({},this.comment));
+      this.comment.text = null
       this.updateLocalStorage();
     },
 

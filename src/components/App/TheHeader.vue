@@ -12,13 +12,21 @@
     <v-btn icon @click="heartBtnClick">
       <v-icon>mdi-heart</v-icon>
     </v-btn>
+
+    <div>{{ username }}</div>
   </v-toolbar>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 
 export default {
   name: 'TheHeader',
+
+  computed: {
+    ...mapGetters('user', ['username'])
+  },
   
   methods: {
     heartBtnClick() {
