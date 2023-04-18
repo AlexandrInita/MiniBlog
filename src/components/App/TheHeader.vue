@@ -13,7 +13,7 @@
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <div>{{ username }}</div>
+    <div>{{ userName }}</div>
   </v-toolbar>
 </template>
 
@@ -25,7 +25,7 @@ export default {
   name: 'TheHeader',
 
   computed: {
-    ...mapGetters('user', ['username'])
+    ...mapGetters('user', ['userName'])
   },
   
   methods: {

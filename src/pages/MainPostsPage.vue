@@ -13,7 +13,7 @@
                   <router-link :to="`/post/read/${post.id}`" style="text-decoration: none; color: inherit;">
                     <v-btn text color="primary">Читать далее</v-btn>
                   </router-link>
-                  <div>
+                  <div v-if="isAdmin">
                     <v-btn icon small @click="edit(post)">
                       <v-icon dark> mdi-pencil-outline</v-icon>
                     </v-btn>
@@ -59,7 +59,7 @@
                   outlined dense hide-details clearable
                 />
               </div>
-              <div class="mt-4">
+              <div class="mt-4" v-if="isAdmin">
                 <v-btn class="px-3 rounded-lg elevation-0" color='primary' @click="generetePosts">
                   <span class="btn-text">Сгенерировать посты</span>
                 </v-btn>
@@ -85,6 +85,7 @@
 
 <script>
 import AddEditPostDialog from '@/components/Dialogs/AddEditPostDialog.vue'
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'MainPostsPage',
@@ -116,6 +117,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters('user', ['isAdmin']),
+
     filteredPosts() {
       return this.searchText 
               ? this.posts.filter(el => el.title.toLowerCase().includes(this.searchText.toLowerCase()))

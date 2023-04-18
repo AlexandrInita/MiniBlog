@@ -4,6 +4,11 @@
 
     <v-main class="mt-0">
       <router-view/>
+
+      <SetUserDialog 
+        :dialog="setUserDialog"
+        @closeDialog="closeDialog"
+      />
     </v-main>
 
     <v-snackbar v-model="snackbarActive" :timeout="2000" color="primary" absolute left shaped bottom>
@@ -17,13 +22,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import TheHeader from './components/App/TheHeader.vue';
+import SetUserDialog from './components/Dialogs/SetUserDialog.vue';
 
 export default {
     name: "App",
+    components: { TheHeader, SetUserDialog },
 
     async created() {
       this.hideHtmlOverflow()
+    },
+
+    mounted() {
+      this.setUserDialog = !this.userName && true
     },
 
     destroyed() {
@@ -31,12 +43,19 @@ export default {
     },
     
     data: () => ({
-      snackbarActive: false
+      snackbarActive: false,
+      setUserDialog: false
     }),
 
-    components: { TheHeader },
+    computed: {
+      ...mapGetters('user', ['userName'])
+    },
 
     methods: {
+      closeDialog() {
+        this.setUserDialog = false
+      },
+
       hideHtmlOverflow() {
         document.querySelector('html').style.overflowY = 'hidden'
       },

@@ -24,14 +24,18 @@
       </v-row>
 
       <v-row>
-        <v-col cols="6">
+        <v-col :cols="(isAdmin || isReader) ? 6 : 12">
           <v-card elevation="1">
             <v-card-text>
               <div class="px-2 commentsList overflow-auto">
                 <div class="mt-4" v-for="(comment, index) in post.comments" :key="index">
                   <div class="d-flex justify-space-between">
                     <h3>{{ comment.name }}</h3>
-                    <v-btn icon small @click="deleteComment(index)">
+                    <v-btn 
+                      v-if="isAdmin || isModerator || (isReader && comment.name === userName)"
+                      icon small
+                      @click="deleteComment(index)"
+                     >
                       <v-icon dark> mdi-delete-outline </v-icon>
                     </v-btn>
                   </div>
@@ -48,15 +52,11 @@
           </v-card>
         </v-col>
 
-        <v-col cols="6">
+        <v-col cols="6" v-if="isAdmin || isReader">
           <v-card elevation="1">
             <v-card-text>
               <label class="ml-2"><strong>Имя комментатора</strong></label>
-              <v-text-field
-                v-model="comment.name"
-                class="mt-1 mb-2 rounded-lg"
-                outlined dense hide-details="" clearable
-              />
+              <div class="ml-2 mb-2">{{ userName }}</div>
               <label class="ml-2"><strong>Комментарий</strong></label>
               <v-textarea
                 v-model="comment.text"
@@ -86,7 +86,7 @@ export default {
     this.FindSelectedPost();
     document.title = this.post.title;
 
-    this.comment.name = this.username
+    this.comment.name = this.userName
   },
 
   data() {
@@ -101,7 +101,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters('user', ['username']),
+    ...mapGetters('user', ['userName', 'isAdmin', 'isModerator', 'isReader']),
 
     id() {
       return this.$route.params.id;
@@ -110,26 +110,27 @@ export default {
 
   methods: {
     addComment() {
-      this.post.comments.push(Object.assign({},this.comment));
+      this.comment.name = this.userName
+      this.post.comments.push(Object.assign({},this.comment))
       this.comment.text = null
-      this.updateLocalStorage();
+      this.updateLocalStorage()
     },
 
     deleteComment(id) {
-      this.post.comments.splice(id, 1);
-      this.updateLocalStorage();
+      this.post.comments.splice(id, 1)
+      this.updateLocalStorage()
     },
 
     FindSelectedPost() {
-      this.post = this.posts.find((el) => el.id == this.id);
+      this.post = this.posts.find((el) => el.id == this.id)
     },
 
     updateLocalStorage() {
-      localStorage.setItem("posts", JSON.stringify(this.posts));
+      localStorage.setItem("posts", JSON.stringify(this.posts))
     },
 
     downloadFromLocalStorage() {
-      this.posts = JSON.parse(localStorage.getItem("posts"));
+      this.posts = JSON.parse(localStorage.getItem("posts"))
     },
   },
 };
