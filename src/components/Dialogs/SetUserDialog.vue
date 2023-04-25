@@ -18,17 +18,19 @@
           <v-autocomplete
             v-model="dialogUser.roles"
             :items="roles"
-            outlined dense chips deletable-chips small-chips multiple
+            class="mt-1 rounded-lg"
+            outlined dense chips deletable-chips hide-details small-chips multiple
           />
         </v-card-text>
 
         <v-card-actions class="pb-4 d-flex justify-end">
           <v-btn 
-            class="px-3" color="primary" 
+            outlined class="px-3" color="primary" 
             :disabled="$v.$invalid"
             @click="setUser"
-          >
-            <span class="btn-text">Сохранить</span>
+          >   
+            <v-icon dark size="20">mdi-check-bold</v-icon>
+            <span class="ml-2 btn-text">Сохранить</span>
           </v-btn>
         </v-card-actions>
       </v-card>

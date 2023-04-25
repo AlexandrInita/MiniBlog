@@ -11,15 +11,18 @@ export default new Vuetify({
     themes: {
       light: {
         background: '#fdfdfd',
-        primary: colors.blue.darken1, 
-        secondary: colors.blue.lighten4,
+       // background: colors.indigo.darken2, 
+        primary: colors.indigo.lighten2, 
+        secondary: colors.indigo.lighten4,
         accent: colors.indigo.base,
+        lightGrey: colors.grey.lighten1
       },
       dark: {
         background: "#000", 
         primary: colors.green.darken1,
         secondary: colors.green.lighten4,
         accent: colors.indigo.base,
+        lightGrey: "#000"
       },
     },
   },

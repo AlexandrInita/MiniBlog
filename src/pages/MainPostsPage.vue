@@ -4,14 +4,14 @@
       <v-row>
         <v-col cols="8 pt-0">
           <div ref="postsList" class="mt-2 px-2 pb-2 overflow-auto">
-            <v-card class="rounded-lg elevation-1" :class="index ? 'mt-2' : 'mt-0'" v-for="(post,index) in this.filteredPosts" :key="index">
+            <v-card class="hover-card" :class="index ? 'mt-2' : 'mt-0'" v-for="(post,index) in this.filteredPosts" :key="index">
               <v-card-title>{{post.title}}</v-card-title> 
               <v-card-text>
                 <div class="text--primary">{{post.shortText}}</div>
 
                 <div class="d-flex justify-space-between mt-10">
                   <router-link :to="`/post/read/${post.id}`" style="text-decoration: none; color: inherit;">
-                    <v-btn text color="primary">Читать далее</v-btn>
+                    <v-btn text rounded-lg color="primary">Читать далее</v-btn>
                   </router-link>
                   <div v-if="isAdmin">
                     <v-btn icon small @click="edit(post)">

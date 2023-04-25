@@ -3,11 +3,10 @@
     <v-container>
       <v-row>
         <v-col cols="12">
-          <v-card tile class="elevation-1">
-  
-            <v-btn class="mt-2 ml-2" color="primary" text @click="$router.go(-1)">
-              <v-icon dark size="20">mdi-arrow-left</v-icon> 
-              <span class="btn-text">Назад</span>
+          <v-card class="base-card">
+            <v-btn class="mt-2 ml-2 rounded-lg" color="primary" text @click="$router.go(-1)">
+              <v-icon dark>mdi-chevron-left</v-icon> 
+              <span class="btn-text">назад</span>
             </v-btn>
             
             <v-card-title>
@@ -25,7 +24,7 @@
 
       <v-row>
         <v-col :cols="(isAdmin || isReader) ? 6 : 12">
-          <v-card elevation="1">
+          <v-card class="base-card">
             <v-card-text>
               <div class="px-2 commentsList overflow-auto">
                 <div class="mt-4" v-for="(comment, index) in post.comments" :key="index">
@@ -53,7 +52,7 @@
         </v-col>
 
         <v-col cols="6" v-if="isAdmin || isReader">
-          <v-card elevation="1">
+          <v-card class="base-card" height="226">
             <v-card-text>
               <label class="ml-2"><strong>Имя комментатора</strong></label>
               <div class="ml-2 mb-2">{{ userName }}</div>
@@ -142,6 +141,6 @@ export default {
 }
 
 .postText {
-  height: 200px;
+  height: 210px;
 }
 </style>

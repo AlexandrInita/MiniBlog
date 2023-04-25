@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar class="px-10" max-height="48" dense elevation="1">
+  <v-toolbar class="px-10 header" max-height="48" dense elevation="0">
     <router-link to="/" class="d-flex flex-row" style="text-decoration: none; color: inherit;">
       <div class="logo">MB</div>
       <v-toolbar-title class="">og</v-toolbar-title>
@@ -44,5 +44,9 @@ export default {
   border: 3px solid var(--v-primary-base);
   border-radius: 8px;
   padding: 3px;
+}
+
+.header {
+  border-bottom: 1px solid var(--v-lightGrey-base) !important;
 }
 </style>
