@@ -1,77 +1,79 @@
 <template>
   <div class="mt-2 d-flex justify-center">
-    <v-container>
-      <v-row>
-        <v-col cols="12">
-          <v-card class="base-card">
-            <v-btn class="mt-2 ml-2 rounded-lg" color="primary" text @click="$router.go(-1)">
-              <v-icon dark>mdi-chevron-left</v-icon> 
-              <span class="btn-text">назад</span>
-            </v-btn>
-            
-            <v-card-title>
-              <h2>{{ post.title }}</h2>
-            </v-card-title>
+      <v-container>
+        <v-row>
+          <v-col cols="12" class="pt-0">
+            <v-card class="base-card postCard delay-03" ref="postCard">
+              <v-btn class="mt-2 ml-2 rounded-lg" color="primary" text @click="goBack">
+                <v-icon dark>mdi-chevron-left</v-icon> 
+                <span class="btn-text">назад</span>
+              </v-btn>
+              
+              <v-card-title>
+                <h2>{{ post.title }}</h2>
+              </v-card-title>
 
-            <v-card-text>
-              <div class="px-2 postText overflow-auto">
-                {{ post.text }}
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
+              <v-card-text>
+                <div class="px-2 postText overflow-auto">
+                  {{ post.text }}
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
 
-      <v-row>
-        <v-col :cols="(isAdmin || isReader) ? 6 : 12">
-          <v-card class="base-card">
-            <v-card-text>
-              <div class="px-2 commentsList overflow-auto">
-                <div class="mt-4" v-for="(comment, index) in post.comments" :key="index">
-                  <div class="d-flex justify-space-between">
-                    <h3>{{ comment.name }}</h3>
-                    <v-btn 
-                      v-if="isAdmin || isModerator || (isReader && comment.name === userName)"
-                      icon small
-                      @click="deleteComment(index)"
-                     >
-                      <v-icon dark> mdi-delete-outline </v-icon>
-                    </v-btn>
+        <transition name="fade" mode="out-in">
+          <v-row v-if="show">
+            <v-col cols="12" :md="(isAdmin || isReader) ? 6 :12">
+              <v-card class="base-card">
+                <v-card-text>
+                  <div class="px-2 commentsList overflow-auto">
+                    <div class="mt-4" v-for="(comment, index) in post.comments" :key="index">
+                      <div class="d-flex justify-space-between">
+                        <h3>{{ comment.name }}</h3>
+                        <v-btn 
+                          v-if="isAdmin || isModerator || (isReader && comment.name === userName)"
+                          icon small
+                          @click="deleteComment(index)"
+                        >
+                          <v-icon dark> mdi-delete-outline </v-icon>
+                        </v-btn>
+                      </div>
+
+                      <div>{{ comment.text }}</div>
+                      <v-divider />
+                    </div>
+
+                    <div v-if="!post.comments || !post.comments.length">
+                      Нет комментариев
+                    </div>
                   </div>
+                </v-card-text>
+              </v-card>
+            </v-col>
 
-                  <div>{{ comment.text }}</div>
-                  <v-divider />
-                </div>
-
-                <div v-if="!post.comments || !post.comments.length">
-                  Нет комментариев
-                </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-
-        <v-col cols="6" v-if="isAdmin || isReader">
-          <v-card class="base-card" height="226">
-            <v-card-text>
-              <label class="ml-2"><strong>Имя комментатора</strong></label>
-              <div class="ml-2 mb-2">{{ userName }}</div>
-              <label class="ml-2"><strong>Комментарий</strong></label>
-              <v-textarea
-                v-model="comment.text"
-                class="mt-1 rounded-lg"
-                outlined no-resize hide-details clearable
-                rows="3"
-              >
-                <template slot="append">
-                  <v-icon @click="addComment">mdi-send</v-icon>
-                </template>
-              </v-textarea>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+            <v-col cols="12" md="6" v-if="isAdmin || isReader">
+              <v-card class="base-card" height="226">
+                <v-card-text>
+                  <label class="ml-2"><strong>Имя комментатора</strong></label>
+                  <div class="ml-2 mb-2">{{ userName }}</div>
+                  <label class="ml-2"><strong>Комментарий</strong></label>
+                  <v-textarea
+                    v-model="comment.text"
+                    class="mt-1 rounded-lg"
+                    outlined no-resize hide-details clearable
+                    rows="3"
+                  >
+                    <template slot="append">
+                      <v-icon @click="addComment">mdi-send</v-icon>
+                    </template>
+                  </v-textarea>
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </transition>
+      </v-container>
   </div>
 </template>
 
@@ -86,6 +88,14 @@ export default {
     document.title = this.post.title;
 
     this.comment.name = this.userName
+
+    this.toShow()
+
+     window.addEventListener("resize", this.onResize)
+  },
+
+  destroyed() {
+    window.removeEventListener("resize", this.onResize)
   },
 
   data() {
@@ -96,6 +106,8 @@ export default {
       },
       post: [],
       posts: [],
+      postCardCols: 3,
+      show: false
     };
   },
 
@@ -108,6 +120,21 @@ export default {
   },
 
   methods: {
+    toShow() {
+      this.show = true
+      this.$nextTick(() => this.onResize())
+    },
+
+    goBack() {
+      this.show = false
+
+      if (this.$refs?.postCard) {
+        this.$refs.postCard.$el.style.height = '210px';
+      }
+
+      setTimeout(() =>  this.$router.go(-1), 300);
+    },
+
     addComment() {
       this.comment.name = this.userName
       this.post.comments.push(Object.assign({},this.comment))
@@ -131,16 +158,38 @@ export default {
     downloadFromLocalStorage() {
       this.posts = JSON.parse(localStorage.getItem("posts"))
     },
+
+    onResize() {
+      if (this.$refs?.postCard) {
+        const otherElementheight = 400
+   
+        this.$refs.postCard.$el.style.width = '100%'
+        this.$refs.postCard.$el.style.height = window.innerHeight - otherElementheight + 'px';
+      }
+    }
   },
 };
 </script>
 
 <style scoped>
-.commentsList {
-  height: 194px;
+.delay-03 {
+  transition: all 0.3s ease;
 }
 
-.postText {
+.commentsList {
+   height: 194px;
+}
+
+.postCard {
   height: 210px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: all 0.3s ease;
+}
+
+.fade-enter, .fade-leave-to
+{
+  opacity: 0;
 }
 </style>

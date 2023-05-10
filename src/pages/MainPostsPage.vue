@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="8 pt-0">
           <div ref="postsList" class="mt-2 px-2 pb-2 overflow-auto">
-            <v-card class="hover-card" :class="index ? 'mt-2' : 'mt-0'" v-for="(post,index) in this.filteredPosts" :key="index">
+            <v-card class="hover-card" :class="index ? 'mt-2' : 'mt-0'" v-for="(post,index) in filteredPosts" :key="index">
               <v-card-title>{{post.title}}</v-card-title> 
               <v-card-text>
                 <div class="text--primary">{{post.shortText}}</div>
@@ -30,7 +30,7 @@
               </v-card-text> 
             </v-card>
 
-            <v-card class="rounded-lg elevation-1" v-if="!this.filteredPosts.length && posts.length">
+            <v-card class="rounded-lg elevation-1" v-if="!filteredPosts.length && posts.length">
               <v-card-text class="d-flex justify-center">
                 <span>Ничего не найдено</span>
               </v-card-text>
@@ -167,7 +167,7 @@ export default {
     },
 
     downloadFromLocalStorage() {
-      this.posts = JSON.parse(localStorage.getItem("posts"))
+      this.posts = JSON.parse(localStorage.getItem("posts")) || []
     },
 
     closeDialog() {
