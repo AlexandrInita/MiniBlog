@@ -90,7 +90,7 @@ export default {
     this.comment.name = this.userName
 
     this.toShow()
-    
+    //
     window.addEventListener("resize", this.onResize)
   },
 
