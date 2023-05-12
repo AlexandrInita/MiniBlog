@@ -2,7 +2,38 @@
   <div class="d-flex justify-center">
     <v-container class="mx-10">
       <v-row>
-        <v-col cols="8 pt-0">
+        <v-col cols="12" class="pt-0">
+          <v-card class="mt-2 mx-2 base-card">
+            <v-card-text>
+              <div class="d-flex">
+                <v-text-field
+                  v-model="searchText"
+                  class="rounded-lg"
+                  append-icon="mdi-magnify"
+                  outlined dense hide-details clearable
+                />
+                <v-btn 
+                  v-if="isAdmin" 
+                  height="38" width="38"
+                  class="ml-2 px-0 py-2 rounded-lg elevation-0 primary" color='primary' 
+                  title="Сгенерировать посты"
+                  @click="generetePosts">
+                  <v-icon size="20">mdi-view-grid-plus</v-icon>
+                </v-btn>
+                <v-btn 
+                  v-if="isAdmin" 
+                  height="38" width="38"
+                  class="ml-2 px-0 py-2 rounded-lg elevation-0 primary" color='primary' 
+                  title="Добавить пост"
+                  @click="createNewPost">
+                  <v-icon size="20">mdi-plus</v-icon>
+                </v-btn>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" class="pt-0 ml-0 mb-2">
           <div ref="postsList" class="mt-2 px-2 pb-2 overflow-auto">
             <v-card class="hover-card" :class="index ? 'mt-2' : 'mt-0'" v-for="(post,index) in filteredPosts" :key="index">
               <v-card-title>{{post.title}}</v-card-title> 
@@ -46,31 +77,6 @@
             </v-card>
           </div>
         </v-col>
-
-        <v-col cols="4" class="pt-0">
-          <v-card class="mt-2" outlined>
-            <v-card-title>Действия</v-card-title>
-            <v-card-text>
-              <div>
-                <v-text-field
-                  v-model="searchText"
-                  class="rounded-lg"
-                  append-icon="mdi-magnify"
-                  outlined dense hide-details clearable
-                />
-              </div>
-              <div class="mt-4" v-if="isAdmin">
-                <v-btn class="px-3 rounded-lg elevation-0" color='primary' @click="generetePosts">
-                  <span class="btn-text">Сгенерировать посты</span>
-                </v-btn>
-                <v-btn class="ml-2 px-3 rounded-lg elevation-0" color='primary' @click="createNewPost">
-                  <v-icon dark size="20">mdi-plus</v-icon>
-                  <span class="ml-2 btn-text">Добавить пост</span>
-                </v-btn>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
       </v-row>
       <AddEditPostDialog 
         :dialog="dialog"
@@ -98,15 +104,8 @@ export default {
     document.title = 'MiniBlog - Статьи';
 
     this.downloadFromLocalStorage()
-
-    this.onResize()
-    window.addEventListener("resize", this.onResize)
   },
 
-  destroyed() {
-    window.removeEventListener("resize", this.onResize)
-  },
-  
   data() {
     return{
       dialog: false,
@@ -174,13 +173,6 @@ export default {
       this.editablePost = null
       this.dialog = false
     },
-
-    onResize() {
-      if (this.$refs?.postsList) {
-        const otherElementheight = 100
-        this.$refs.postsList.style.height = window.innerHeight - otherElementheight + 'px';
-      }
-    }
   }
 }
 </script>

@@ -11,7 +11,7 @@
       />
     </v-main>
 
-    <v-snackbar v-model="snackbarActive" :timeout="2000" color="primary" absolute left shaped bottom>
+    <v-snackbar class="snackbar" v-model="snackbarActive" :timeout="2000" color="primary" left shaped bottom>
       Сообщение: удачи и хорошего настроения!
     </v-snackbar>
 
@@ -57,11 +57,11 @@ export default {
       },
 
       hideHtmlOverflow() {
-        document.querySelector('html').style.overflowY = 'hidden'
+       // document.querySelector('html').style.overflowY = 'hidden'
       },
 
       showHtmlOverflow() {
-        document.querySelector('html').style.overflowY = 'visible'
+       // document.querySelector('html').style.overflowY = 'visible'
       },
     }
 };
@@ -84,5 +84,12 @@ export default {
   border-radius: 4px;
   background-color: #A0A0A0;
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.6);
+}
+
+.snackbar {
+  position: sticky;
+  position: -webkit-sticky; 
+  top: 0;
+  z-index: 2;
 }
 </style>

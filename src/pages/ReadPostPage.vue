@@ -24,7 +24,27 @@
 
         <transition name="fade" mode="out-in">
           <v-row v-if="show">
-            <v-col cols="12" :md="(isAdmin || isReader) ? 6 :12">
+            <v-col cols="12" md="6" v-if="isAdmin || isReader" class="mb-5">
+              <v-card class="base-card" height="226">
+                <v-card-text>
+                  <label class="ml-2"><strong>Имя комментатора</strong></label>
+                  <div class="ml-2 mb-2">{{ userName }}</div>
+                  <label class="ml-2"><strong>Комментарий</strong></label>
+                  <v-textarea
+                    v-model="comment.text"
+                    class="mt-1 rounded-lg"
+                    outlined no-resize hide-details clearable
+                    rows="3"
+                  >
+                    <template slot="append">
+                      <v-icon @click="addComment">mdi-send</v-icon>
+                    </template>
+                  </v-textarea>
+                </v-card-text>
+              </v-card>
+            </v-col>
+            
+            <v-col cols="12" :md="(isAdmin || isReader) ? 6 :12" class="mb-5">
               <v-card class="base-card">
                 <v-card-text>
                   <div class="px-2 commentsList overflow-auto">
@@ -51,26 +71,6 @@
                 </v-card-text>
               </v-card>
             </v-col>
-
-            <v-col cols="12" md="6" v-if="isAdmin || isReader">
-              <v-card class="base-card" height="226">
-                <v-card-text>
-                  <label class="ml-2"><strong>Имя комментатора</strong></label>
-                  <div class="ml-2 mb-2">{{ userName }}</div>
-                  <label class="ml-2"><strong>Комментарий</strong></label>
-                  <v-textarea
-                    v-model="comment.text"
-                    class="mt-1 rounded-lg"
-                    outlined no-resize hide-details clearable
-                    rows="3"
-                  >
-                    <template slot="append">
-                      <v-icon @click="addComment">mdi-send</v-icon>
-                    </template>
-                  </v-textarea>
-                </v-card-text>
-              </v-card>
-            </v-col>
           </v-row>
         </transition>
       </v-container>
@@ -91,6 +91,7 @@ export default {
 
     this.toShow()
     //
+    window.scrollBy(0, 0)
     window.addEventListener("resize", this.onResize)
   },
 
@@ -129,7 +130,7 @@ export default {
       this.show = false
 
       if (this.$refs?.postCard) {
-        this.$refs.postCard.$el.style.height = '210px';
+        this.$refs.postCard.$el.style.minHeight = '210px';
       }
 
       setTimeout(() =>  this.$router.go(-1), 300);
@@ -163,8 +164,7 @@ export default {
       if (this.$refs?.postCard) {
         const otherElementheight = 400
    
-        this.$refs.postCard.$el.style.width = '100%'
-        this.$refs.postCard.$el.style.height = window.innerHeight - otherElementheight + 'px';
+        this.$refs.postCard.$el.style.minHeight = window.innerHeight - otherElementheight + 'px';
       }
     }
   },
@@ -181,7 +181,7 @@ export default {
 }
 
 .postCard {
-  height: 210px;
+  min-height: 210px; 
 }
 
 .fade-enter-active, .fade-leave-active {

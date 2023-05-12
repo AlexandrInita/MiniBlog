@@ -77,7 +77,7 @@ export default {
     post: {
       title: { required, maxLength: maxLength(20)},
       shortText: { required, maxLength: maxLength(50)},
-      text: { required, maxLength: maxLength(1000)},
+      text: { required, maxLength: maxLength(10000)},
     },
   },
 

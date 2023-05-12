@@ -48,5 +48,10 @@ export default {
 
 .header {
   border-bottom: 1px solid var(--v-lightGrey-base) !important;
+
+  position: sticky;
+  position: -webkit-sticky; 
+  top: 0;
+  z-index: 2;
 }
 </style>
