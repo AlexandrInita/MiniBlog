@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex justify-center">
-    <v-container class="mx-10">
-      <v-row>
-        <v-col cols="12" class="pt-0">
-          <v-card class="mt-2 mx-2 base-card">
+    <v-container class="mx-10 pt-0">
+      <v-row class="mt-0">
+        <v-col cols="12" class="py-4">
+          <v-card class="base-card">
             <v-card-text>
               <div class="d-flex">
                 <v-text-field
@@ -32,50 +32,50 @@
             </v-card-text>
           </v-card>
         </v-col>
+      </v-row>
 
-        <v-col cols="12" class="pt-0 ml-0 mb-2">
-          <div ref="postsList" class="mt-2 px-2 pb-2 overflow-auto">
-            <v-card class="hover-card" :class="index ? 'mt-2' : 'mt-0'" v-for="(post,index) in filteredPosts" :key="index">
-              <v-card-title>{{post.title}}</v-card-title> 
-              <v-card-text>
-                <div class="text--primary">{{post.shortText}}</div>
+      <v-row class="mb-2 mt-0">
+        <v-col cols="12">
+          <v-card class="hover-card mb-2" v-for="(post,index) in filteredPosts" :key="index">
+            <v-card-title>{{post.title}}</v-card-title> 
+            <v-card-text>
+              <div class="text--primary">{{post.shortText}}</div>
 
-                <div class="d-flex justify-space-between mt-10">
-                  <router-link :to="`/post/read/${post.id}`" style="text-decoration: none; color: inherit;">
-                    <v-btn text rounded-lg color="primary">Читать далее</v-btn>
-                  </router-link>
-                  <div v-if="isAdmin">
-                    <v-btn icon small @click="edit(post)">
-                      <v-icon dark> mdi-pencil-outline</v-icon>
-                    </v-btn>
-                      
-                    <v-btn class="ml-1" icon small @click="deletePost(index)">
-                      <v-icon dark> mdi-delete-outline</v-icon>
-                    </v-btn>
-                  </div>          
-                </div>
+              <div class="d-flex justify-space-between mt-10">
+                <router-link :to="`/post/read/${post.id}`" style="text-decoration: none; color: inherit;">
+                  <v-btn text rounded-lg color="primary">Читать далее</v-btn>
+                </router-link>
+                <div v-if="isAdmin">
+                  <v-btn icon small @click="edit(post)">
+                    <v-icon dark> mdi-pencil-outline</v-icon>
+                  </v-btn>
+                    
+                  <v-btn class="ml-1" icon small @click="deletePost(index)">
+                    <v-icon dark> mdi-delete-outline</v-icon>
+                  </v-btn>
+                </div>          
+              </div>
 
-                <div class="mt-1">
-                  <span>Комментарии: {{post.comments.length}}</span>
-                </div>
-              </v-card-text> 
-            </v-card>
+              <div class="mt-1">
+                <span>Комментарии: {{post.comments.length}}</span>
+              </div>
+            </v-card-text> 
+          </v-card>
 
-            <v-card class="rounded-lg elevation-1" v-if="!filteredPosts.length && posts.length">
-              <v-card-text class="d-flex justify-center">
-                <span>Ничего не найдено</span>
-              </v-card-text>
-            </v-card>
+          <v-card class="rounded-lg elevation-1" v-if="!filteredPosts.length && posts.length">
+            <v-card-text class="d-flex justify-center">
+              <span>Ничего не найдено</span>
+            </v-card-text>
+          </v-card>
 
-            <v-card class="rounded-lg elevation-1" v-if="!posts.length">
-              <v-card-text class="d-flex justify-center">
-                  <video height="350" width="350" autoplay muted loop>
-                    <source src="@/assets/noposts.webm" type="video/webm">
-                  </video>
-                  <h1>Жду...</h1>
-              </v-card-text>
-            </v-card>
-          </div>
+          <v-card class="rounded-lg elevation-1" v-if="!posts.length">
+            <v-card-text class="d-flex justify-center">
+                <video height="350" width="350" autoplay muted loop>
+                  <source src="@/assets/noposts.webm" type="video/webm">
+                </video>
+                <h1>Жду...</h1>
+            </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
       <AddEditPostDialog 

@@ -1,8 +1,8 @@
 <template>
-  <div class="mt-2 d-flex justify-center">
-      <v-container>
-        <v-row>
-          <v-col cols="12" class="pt-0">
+  <div class="d-flex justify-center">
+      <v-container class="pt-0">
+        <v-row class="mt-0">
+          <v-col cols="12" class="pt-4">
             <v-card class="base-card postCard delay-03" ref="postCard">
               <v-btn class="mt-2 ml-2 rounded-lg" color="primary" text @click="goBack">
                 <v-icon dark>mdi-chevron-left</v-icon> 
@@ -23,8 +23,8 @@
         </v-row>
 
         <transition name="fade" mode="out-in">
-          <v-row v-if="show">
-            <v-col cols="12" md="6" v-if="isAdmin || isReader" class="mb-5">
+          <v-row v-if="show" class="mt-0 mb-5">
+            <v-col cols="12" md="6" class="pt-4 pb-0" v-if="isAdmin || isReader">
               <v-card class="base-card" height="226">
                 <v-card-text>
                   <label class="ml-2"><strong>Имя комментатора</strong></label>
@@ -44,7 +44,7 @@
               </v-card>
             </v-col>
             
-            <v-col cols="12" :md="(isAdmin || isReader) ? 6 :12" class="mb-5">
+            <v-col cols="12" class="pt-4" :md="(isAdmin || isReader) ? 6 :12">
               <v-card class="base-card">
                 <v-card-text>
                   <div class="px-2 commentsList overflow-auto">
@@ -162,7 +162,7 @@ export default {
 
     onResize() {
       if (this.$refs?.postCard) {
-        const otherElementheight = 400
+        const otherElementheight = 360
    
         this.$refs.postCard.$el.style.minHeight = window.innerHeight - otherElementheight + 'px';
       }

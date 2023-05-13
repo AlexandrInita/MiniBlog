@@ -2,7 +2,7 @@
   <v-app class="app-background">
     <TheHeader @heartBtnClick="snackbarActive = true"/>
 
-    <v-main class="mt-0">
+    <v-main>
       <router-view/>
 
       <SetUserDialog 
@@ -30,16 +30,8 @@ export default {
     name: "App",
     components: { TheHeader, SetUserDialog },
 
-    async created() {
-      this.hideHtmlOverflow()
-    },
-
     mounted() {
       this.setUserDialog = !this.userName && true
-    },
-
-    destroyed() {
-      this.showHtmlOverflow()
     },
     
     data: () => ({
@@ -54,14 +46,6 @@ export default {
     methods: {
       closeDialog() {
         this.setUserDialog = false
-      },
-
-      hideHtmlOverflow() {
-       // document.querySelector('html').style.overflowY = 'hidden'
-      },
-
-      showHtmlOverflow() {
-       // document.querySelector('html').style.overflowY = 'visible'
       },
     }
 };

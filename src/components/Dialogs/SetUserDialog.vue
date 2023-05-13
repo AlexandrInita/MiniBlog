@@ -19,6 +19,7 @@
             v-model="dialogUser.roles"
             :items="roles"
             class="mt-1 rounded-lg"
+            no-data-text="Нет данных"
             outlined dense chips deletable-chips hide-details small-chips multiple
           />
         </v-card-text>
